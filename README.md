@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Pixel Battle
+Простое приложение для совместного рисования пиксель-артов по заданному образцу. Игроки соревнуются, кто точнее и быстрее повторит картинку на общем холсте.
 
-## Getting Started
+Описание игры
+В центре экрана — пустой холст 32x32. Слева или на фоне отображается картинка-эталон. Задача игрока — выбирать цвета из палитры и закрашивать пиксели так, чтобы они соответствовали образцу.
 
-First, run the development server:
+Точность: Рассчитывается в процентах для каждого игрока.
+Победа: Тот, кто первым наберет 100%, выигрывает раунд.
+Рейтинг: Таблица справа показывает лидеров по точности и количеству поставленных пикселей.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Технологии
+Frontend: Next.js (React) + TypeScript
+Backend: Server Actions (обработка кликов и логика игры)
+База данных: PostgreSQL + Drizzle ORM
+Инфраструктура: Docker (для быстрого запуска базы и приложения)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Структура папок
+src/app — основные страницы и логика сервера (actions).
+src/components — визуальные части: холст, палитра, таблица лидеров и админка.
+src/db — настройки базы данных и описание таблиц (схемы).
+public — картинки-референсы для рисования.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Как запустить
+Через Docker (самый простой способ)
+Убедитесь, что Docker запущен.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+В терминале выполните:
 
-## Learn More
+Bash
+docker-compose up --build
+Откройте http://localhost:3000.
 
-To learn more about Next.js, take a look at the following resources:
+Обычный запуск
+Установите зависимости: bun install.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Создайте файл .env и укажите там DATABASE_URL вашей базы Postgres.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Примените настройки базы: bun drizzle-kit push.
 
-## Deploy on Vercel
+Запустите проект: bun dev.
+## Тесты
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Запуск тестов:
+bun test
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Если ошибка тестов в VS Code:
+Откройте любой .ts файл.
+Нажмите Ctrl + Shift + P 
+Введите "TypeScript: Restart TS Server" и нажмите Enter.
+
+Функции админа
+Если зайти под учетной записью администратора, доступны:
+Управление игроками: возможность забанить нарушителей.
+Смена задания: выбор новой картинки для рисования.
+Консоль событий: просмотр всех действий игроков (кто зашел, кто что поставил) в реальном времени.

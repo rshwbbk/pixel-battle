@@ -195,10 +195,11 @@ export function AdminUI({ onLogout }: { onLogout: () => void }) {
   <h3 style={{ borderBottom: "1px solid #000000" }}>Логи событий</h3>
   <pre style={{ fontSize: '10px' }}>{JSON.stringify(logs, null, 2)}</pre>
   <div style={{ height: "150px", overflowY: "auto" }}>
-    {logs.map((l, i) => (
-  <div key={i} style={{ padding: "5px 0", borderBottom: "1px dotted #ff0000", fontSize: "13px" }}>
+   {logs.map((l, i) => (
+  <div key={i} style={{ padding: "5px 0", borderBottom: "1px dotted #ccc", fontSize: "13px" }}>
     <span style={{ color: "#666", marginRight: '10px' }}>
-      {l.createdAt ? new Date(l.createdAt).toLocaleTimeString() : "---"}
+      {/* Используем l.timestamp вместо l.createdAt */}
+      {l.timestamp ? new Date(l.timestamp).toLocaleTimeString() : "---"}
     </span> 
     <span style={{ fontWeight: 'bold' }}>{l.action}</span>
   </div>
